@@ -17,9 +17,9 @@
       "minecraft:item_model": "polyhorns:horn_of_origin",
       "minecraft:item_name": "Horn of Origin",
       "minecraft:rarity": "epic",
+      "minecraft:max_stack_size": 1,
       "!minecraft:consumable": {},
-      "!minecraft:food": {},
-      "minecraft:max_stack_size": 1
+      "!minecraft:food": {}
     },
     "count": 1
   }
