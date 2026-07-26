@@ -41,6 +41,6 @@ public class PolyHorns implements ModInitializer {
 				new ConfigCommand()
 		);
 
-		HornEvents.registerHornEvents();
+		HornEvents.register();
 	}
 }
