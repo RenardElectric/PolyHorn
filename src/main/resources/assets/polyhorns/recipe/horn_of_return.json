@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "CEC",
+    "PHP",
+    "CSC"
+  ],
+  "key": {
+    "C": "minecraft:chorus_fruit",
+    "E": "minecraft:echo_shard",
+    "P": "minecraft:ender_pearl",
+    "H": "minecraft:goat_horn",
+    "S": "minecraft:nether_star"
+  },
+  "result": {
+    "id": "minecraft:poisonous_potato",
+    "components": {
+      "minecraft:item_model": "polyhorns:horn_of_return",
+      "minecraft:item_name": "Horn of Return",
+      "minecraft:rarity": "epic",
+      "minecraft:max_stack_size": 1,
+      "!minecraft:consumable": {},
+      "!minecraft:food": {}
+    },
+    "count": 1
+  }
+}

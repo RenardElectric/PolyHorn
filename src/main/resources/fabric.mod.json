@@ -1,0 +1,25 @@
+{
+	"schemaVersion": 1,
+	"id": "polyhorns",
+	"version": "${version}",
+	"name": "PolyHorns",
+	"description": "",
+	"authors": [
+		"RenardElectric",
+		"Timeo"
+	],
+	"license": "MIT",
+	"icon": "assets/polyhorns/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "polycube.polyhorns.PolyHorns"
+		]
+	},
+	"depends": {
+		"java": ">=${java_version}",
+		"minecraft": "${minecraft_version}",
+		"fabricloader": ">=${loader_version}",
+		"fabric-api": ">=${fabric_api_version}"
+	}
+}

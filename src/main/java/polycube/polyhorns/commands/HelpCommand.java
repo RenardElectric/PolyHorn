@@ -1,0 +1,32 @@
+package polycube.polyhorns.commands;
+
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.PermissionLevel;
+
+public class HelpCommand extends PolyHornsCommand {
+    public HelpCommand() {
+        super(
+                "help",
+                "Displays a list of available commands and their descriptions",
+                "",
+                PermissionLevel.ALL
+        );
+    }
+
+    @Override
+    protected int execute(CommandSourceStack source) {
+        StringBuilder helpMessage = new StringBuilder("\nAvailable commands:");
+        for (PolyHornsCommand command : PolyHornsCommands.getCommands()) {
+            if (hasPermission(source, command.getPermissionLevel())) {
+                helpMessage.append("\n\n")
+                        .append(command.getUsage())
+                        .append("\n")
+                        .append("    - ")
+                        .append(command.getDescription());
+            }
+        }
+        source.sendSuccess(() -> Component.literal(helpMessage.toString()), false);
+        return 1;
+    }
+}
