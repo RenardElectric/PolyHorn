@@ -7,4 +7,4 @@ pluginManagement {
 	}
 }
 
-rootProject.name = 'polyhorns'
+rootProject.name = 'polyhorn'

@@ -1,4 +1,4 @@
-package polycube.polyhorns.commands;
+package polycube.polyhorn.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
@@ -7,16 +7,16 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.permissions.PermissionLevel;
-import polycube.polyhorns.Config;
-import polycube.polyhorns.PolyHorns;
+import polycube.polyhorn.Config;
+import polycube.polyhorn.PolyHorn;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 
-public class ConfigCommand extends PolyHornsCommand {
+public class ConfigCommand extends PolyHornCommand {
     public ConfigCommand() {
         super(
                 "config",
-                "Manage the PolyHorns mod configuration.",
+                "Manage the PolyHorn mod configuration.",
                 "<subcommand> [args]",
                 PermissionLevel.GAMEMASTERS
         );
@@ -34,14 +34,14 @@ public class ConfigCommand extends PolyHornsCommand {
     }
 
     private static int getHornCooldown(CommandContext<CommandSourceStack> ctx) {
-        int value = PolyHorns.config().getHornCooldown();
+        int value = PolyHorn.config().getHornCooldown();
         ctx.getSource().sendSuccess(() -> Component.literal("Horn cooldown is " + value + " ticks"), false);
         return 1;
     }
 
     private static int setHornCooldown(CommandContext<CommandSourceStack> ctx) {
         int value = getInteger(ctx, "value");
-        PolyHorns.config().setHornCooldown(value);
+        PolyHorn.config().setHornCooldown(value);
         ctx.getSource().sendSuccess(() -> Component.literal("Set horn cooldown to " + value + " ticks"), false);
         return 1;
     }

@@ -1,19 +1,19 @@
 {
 	"schemaVersion": 1,
-	"id": "polyhorns",
+	"id": "polyhorn",
 	"version": "${version}",
-	"name": "PolyHorns",
+	"name": "PolyHorn",
 	"description": "",
 	"authors": [
 		"RenardElectric",
 		"Timeo"
 	],
 	"license": "MIT",
-	"icon": "assets/polyhorns/icon.png",
+	"icon": "assets/polyhorn/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "polycube.polyhorns.PolyHorns"
+          "polycube.polyhorn.PolyHorn"
 		]
 	},
 	"depends": {

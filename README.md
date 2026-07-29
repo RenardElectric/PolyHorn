@@ -1,4 +1,4 @@
-# PolyHorns
+# PolyHorn
 
 ## Usage
 
@@ -12,13 +12,13 @@ The mod is exclusively server-side.
 
 ## Commands
 
-- /polyhorns help 
+- /polyhorn help 
     - Displays a list of available commands and their descriptions.
 
 
-- /polyhorns config \<subcommand> \[args]
-    - Manage the PolyHorns mod configuration.
+- /polyhorn config \<subcommand> \[args]
+    - Manage the PolyHorn mod configuration.
 
 
-- /polyhorns give \<players> \<hornType>
+- /polyhorn give \<players> \<hornType>
     - Give a horn of a specific type to one or more players. (admins only).

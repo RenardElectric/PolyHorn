@@ -1,4 +1,4 @@
-package polycube.polyhorns;
+package polycube.polyhorn;
 
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.level.portal.TeleportTransition;
-import polycube.polyhorns.utils.Helpers;
+import polycube.polyhorn.utils.Helpers;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public final class HornEvents {
     private HornEvents() {}
 
     public static void register() {
-        Helpers.debug("Registering horn events for {}", PolyHorns.MOD_ID);
+        Helpers.debug("Registering horn events for {}", PolyHorn.MOD_ID);
 
         UseEntityCallback.EVENT.register((player, _, _, entity, _) -> {
             if ((player.isShiftKeyDown() && !player.isSpectator()) || !(entity instanceof ItemFrame frame)) {
@@ -115,7 +115,7 @@ public final class HornEvents {
     ) {
         player.teleport(transition);
         player.resetFallDistance();
-        player.getCooldowns().addCooldown(HornType.HORN_COOLDOWN_GROUP, PolyHorns.config().getHornCooldown());
+        player.getCooldowns().addCooldown(HornType.HORN_COOLDOWN_GROUP, PolyHorn.config().getHornCooldown());
         transition.newLevel().playSound(
                 null,
                 transition.position().x,

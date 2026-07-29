@@ -8,7 +8,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"polyhorns" {
+		"polyhorn" {
 			sourceSet sourceSets.main
 		}
 	}

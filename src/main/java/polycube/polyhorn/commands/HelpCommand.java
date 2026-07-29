@@ -1,10 +1,10 @@
-package polycube.polyhorns.commands;
+package polycube.polyhorn.commands;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.permissions.PermissionLevel;
 
-public class HelpCommand extends PolyHornsCommand {
+public class HelpCommand extends PolyHornCommand {
     public HelpCommand() {
         super(
                 "help",
@@ -17,7 +17,7 @@ public class HelpCommand extends PolyHornsCommand {
     @Override
     protected int execute(CommandSourceStack source) {
         StringBuilder helpMessage = new StringBuilder("\nAvailable commands:");
-        for (PolyHornsCommand command : PolyHornsCommands.getCommands()) {
+        for (PolyHornCommand command : PolyHornCommands.getCommands()) {
             if (hasPermission(source, command.getPermissionLevel())) {
                 helpMessage.append("\n\n")
                         .append(command.getUsage())

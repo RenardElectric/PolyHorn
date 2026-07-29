@@ -1,4 +1,4 @@
-package polycube.polyhorns.commands;
+package polycube.polyhorn.commands;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -8,33 +8,33 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
-import polycube.polyhorns.PolyHorns;
-import polycube.polyhorns.utils.Helpers;
+import polycube.polyhorn.PolyHorn;
+import polycube.polyhorn.utils.Helpers;
 
 import java.util.Objects;
 
-public final class PolyHornsCommands {
-    private static PolyHornsCommand @Nullable [] commands;
+public final class PolyHornCommands {
+    private static PolyHornCommand @Nullable [] commands;
 
-    private PolyHornsCommands() {
+    private PolyHornCommands() {
     }
 
-    public static void registerCommands(PolyHornsCommand... commands) {
-        PolyHornsCommands.commands = commands;
+    public static void registerCommands(PolyHornCommand... commands) {
+        PolyHornCommands.commands = commands;
         CommandRegistrationCallback.EVENT.register((dispatcher, _, _) -> {
-            var baseCommand = Commands.literal(PolyHorns.MOD_ID);
+            var baseCommand = Commands.literal(PolyHorn.MOD_ID);
             baseCommand.executes(context -> printModInfo(context.getSource()));
-            for (PolyHornsCommand command : commands) {
+            for (PolyHornCommand command : commands) {
                 baseCommand.then(command.getCommand());
             }
             dispatcher.register(baseCommand);
-            Helpers.debug("Registered {} PolyHorns subcommand(s)", commands.length);
+            Helpers.debug("Registered {} PolyHorn subcommand(s)", commands.length);
         });
     }
 
     public static int printModInfo(CommandSourceStack cst) {
         var optionalModData = FabricLoader.getInstance()
-                .getModContainer(PolyHorns.MOD_ID)
+                .getModContainer(PolyHorn.MOD_ID)
                 .map(ModContainer::getMetadata);
 
         if (optionalModData.isEmpty()) {
@@ -53,7 +53,7 @@ public final class PolyHornsCommands {
         return 1;
     }
 
-    public static PolyHornsCommand[] getCommands() {
-        return Objects.requireNonNull(commands, "PolyHorns commands are unavailable before registration");
+    public static PolyHornCommand[] getCommands() {
+        return Objects.requireNonNull(commands, "PolyHorn commands are unavailable before registration");
     }
 }

@@ -1,7 +1,7 @@
-package polycube.polyhorns.utils;
+package polycube.polyhorn.utils;
 
-import static polycube.polyhorns.PolyHorns.LOGGER;
-import static polycube.polyhorns.PolyHorns.MOD_ID;
+import static polycube.polyhorn.PolyHorn.LOGGER;
+import static polycube.polyhorn.PolyHorn.MOD_ID;
 
 public final class Helpers {
     private Helpers() {}

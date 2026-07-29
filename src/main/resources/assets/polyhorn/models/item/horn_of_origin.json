@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "polyhorns:item/horn_of_origin"
+        "layer0": "polyhorn:item/horn_of_origin"
     }
 }

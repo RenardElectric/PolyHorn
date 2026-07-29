@@ -1,4 +1,4 @@
-package polycube.polyhorns;
+package polycube.polyhorn;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 /// Codec-backed return target stored in vanilla custom data, so clients do not need the mod.
 public record HornReturnLocation(ResourceKey<Level> dimension, Vec3 position, float yaw, float pitch) {
-    private static final String DATA_KEY = PolyHorns.MOD_ID + ":return_location";
+    private static final String DATA_KEY = PolyHorn.MOD_ID + ":return_location";
 
     private static final Codec<HornReturnLocation> LOCATION_CODEC =
             RecordCodecBuilder.create(

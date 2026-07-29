@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "polyhorns:item/horn_of_return"
+    "model": "polyhorn:item/horn_of_return"
   }
 }

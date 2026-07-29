@@ -1,4 +1,4 @@
-package polycube.polyhorns;
+package polycube.polyhorn;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.resources.Identifier;
@@ -6,7 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
-/// World-persistent storage for the PolyHorns mod configuration.
+/// World-persistent storage for the PolyHorn mod configuration.
 public class Config extends SavedData {
     public static final int HRN_COOLDOWN_DEFAULT = 100;
     public static final int HRN_COOLDOWN_MAX = 10000;
@@ -17,7 +17,7 @@ public class Config extends SavedData {
 
     @SuppressWarnings("DataFlowIssue")
     private static final SavedDataType<Config> TYPE = new SavedDataType<>(
-            Identifier.fromNamespaceAndPath(PolyHorns.MOD_ID, "config"),
+            Identifier.fromNamespaceAndPath(PolyHorn.MOD_ID, "config"),
             () -> new Config(HRN_COOLDOWN_DEFAULT),
             CODEC,
             null
@@ -45,7 +45,7 @@ public class Config extends SavedData {
         return true;
     }
 
-    /// Loads or creates the world-level PolyHorns config.
+    /// Loads or creates the world-level PolyHorn config.
     public static Config load(MinecraftServer server) {
         return server.getDataStorage().computeIfAbsent(TYPE);
     }

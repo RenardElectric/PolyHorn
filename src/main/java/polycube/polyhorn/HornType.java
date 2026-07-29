@@ -1,4 +1,4 @@
-package polycube.polyhorns;
+package polycube.polyhorn;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,7 @@ public enum HornType {
     RETURN("horn_of_return", "Horn of Return"),
     ORIGIN("horn_of_origin", "Horn of Origin");
 
-    public static final Identifier HORN_COOLDOWN_GROUP = Identifier.fromNamespaceAndPath(PolyHorns.MOD_ID, "horn_cooldown");
+    public static final Identifier HORN_COOLDOWN_GROUP = Identifier.fromNamespaceAndPath(PolyHorn.MOD_ID, "horn_cooldown");
 
     private final String commandName;
     private final String displayName;
@@ -23,7 +23,7 @@ public enum HornType {
     HornType(String commandName, String displayName) {
         this.commandName = commandName;
         this.displayName = displayName;
-        this.itemModel = Identifier.fromNamespaceAndPath(PolyHorns.MOD_ID, commandName);
+        this.itemModel = Identifier.fromNamespaceAndPath(PolyHorn.MOD_ID, commandName);
     }
 
     public String commandName() {

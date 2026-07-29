@@ -1,4 +1,4 @@
 @NullMarked
-package polycube.polyhorns.commands;
+package polycube.polyhorn;
 
 import org.jspecify.annotations.NullMarked;

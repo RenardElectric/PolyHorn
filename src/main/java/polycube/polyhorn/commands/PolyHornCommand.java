@@ -1,4 +1,4 @@
-package polycube.polyhorns.commands;
+package polycube.polyhorn.commands;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
@@ -6,15 +6,15 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.permissions.Permission;
 import net.minecraft.server.permissions.PermissionLevel;
-import polycube.polyhorns.PolyHorns;
+import polycube.polyhorn.PolyHorn;
 
-public abstract class PolyHornsCommand {
+public abstract class PolyHornCommand {
     private final String name;
     private final String description;
     private final String usage;
     private final PermissionLevel permissionLevel;
 
-    public PolyHornsCommand(String name, String description, String usage, PermissionLevel permissionLevel) {
+    public PolyHornCommand(String name, String description, String usage, PermissionLevel permissionLevel) {
         this.name = name;
         this.description = description;
         this.usage = usage;
@@ -30,7 +30,7 @@ public abstract class PolyHornsCommand {
     }
 
     protected String getUsage() {
-        return "/" + PolyHorns.MOD_ID + " " + name + (usage.isBlank() ? "" : " " + usage);
+        return "/" + PolyHorn.MOD_ID + " " + name + (usage.isBlank() ? "" : " " + usage);
     }
 
     protected PermissionLevel getPermissionLevel() {

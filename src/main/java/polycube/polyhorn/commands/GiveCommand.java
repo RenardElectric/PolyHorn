@@ -1,4 +1,4 @@
-package polycube.polyhorns.commands;
+package polycube.polyhorn.commands;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -8,11 +8,11 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.PermissionLevel;
-import polycube.polyhorns.HornType;
+import polycube.polyhorn.HornType;
 
 import java.util.Collection;
 
-public class GiveCommand extends PolyHornsCommand {
+public class GiveCommand extends PolyHornCommand {
     public GiveCommand() {
         super(
                 "give",
