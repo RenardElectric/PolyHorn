@@ -67,7 +67,7 @@ public final class HornEvents {
                 false,
                 TeleportTransition.DO_NOTHING
         );
-        teleport(player, stack, transition);
+        teleport(player, transition);
     }
 
     private static void useReturnHorn(ServerPlayer player, ItemStack stack) {
@@ -92,7 +92,7 @@ public final class HornEvents {
         }
 
         notify(player, "Teleporting...");
-        teleport(player, stack, transition.get());
+        teleport(player, transition.get());
     }
 
     private static void updateLore(ItemStack stack, HornReturnLocation location) {
@@ -111,12 +111,11 @@ public final class HornEvents {
 
     private static void teleport(
             ServerPlayer player,
-            ItemStack stack,
             TeleportTransition transition
     ) {
         player.teleport(transition);
         player.resetFallDistance();
-        player.getCooldowns().addCooldown(stack, PolyHorns.config().getHornCooldown());
+        player.getCooldowns().addCooldown(HornType.HORN_COOLDOWN_GROUP, PolyHorns.config().getHornCooldown());
         transition.newLevel().playSound(
                 null,
                 transition.position().x,
