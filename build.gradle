@@ -14,6 +14,10 @@ loom {
 		}
 	}
 
+	runs {
+		configureEach { preferGradleTask.set(true) }
+	}
+
 	accessWidenerPath = file("src/main/resources/polyhorn.classtweaker")
 }
 
@@ -31,7 +35,9 @@ dependencies {
 
 processResources {
 	def resourceProperties = [
-			version: mod_version,
+			mod_id: mod_id,
+			mod_name: mod_name,
+			mod_version: mod_version,
 			minecraft_version: minecraft_version,
 			loader_version: loader_version,
 			java_version: java_version,
@@ -59,7 +65,8 @@ java {
 }
 
 jar {
+	def licenseFileName = "LICENSE_${mod_id}"
 	from("LICENSE") {
-		rename { "${it}_$name" }
+		rename("LICENSE", licenseFileName)
 	}
 }

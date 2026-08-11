@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "polyhorn",
-  "version": "${version}",
-  "name": "PolyHorn",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
   "description": "",
   "authors": [
     "RenardElectric",
