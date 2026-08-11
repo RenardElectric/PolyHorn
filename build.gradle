@@ -10,9 +10,17 @@ loom {
 	mods {
 		"polyhorn" {
 			sourceSet sourceSets.main
+			sourceSet sourceSets.client
 		}
 	}
 
+	accessWidenerPath = file("src/main/resources/polyhorn.classtweaker")
+}
+
+fabricApi {
+	configureDataGeneration() {
+		client = true
+	}
 }
 
 dependencies {

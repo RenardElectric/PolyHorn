@@ -11,7 +11,6 @@ import polycube.polyhorn.commands.ConfigCommand;
 import polycube.polyhorn.commands.GiveCommand;
 import polycube.polyhorn.commands.HelpCommand;
 import polycube.polyhorn.commands.PolyHornCommands;
-import polycube.polyhorn.utils.Helpers;
 
 import java.util.Objects;
 
@@ -28,11 +27,11 @@ public class PolyHorn implements ModInitializer {
 	public void onInitialize() {
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
 			config = Config.load(server);
-			Helpers.debug("Initialized PolyHorn state for server {}", server.getServerModName());
+			debug("Initialized PolyHorn state for server {}", server.getServerModName());
 		});
 		ServerLifecycleEvents.SERVER_STOPPED.register(_ -> {
 			config = null;
-			Helpers.debug("Cleared PolyHorn server state");
+			debug("Cleared PolyHorn server state");
 		});
 
 		PolyHornCommands.registerCommands(
@@ -42,5 +41,10 @@ public class PolyHorn implements ModInitializer {
 		);
 
 		HornEvents.register();
+	}
+
+	public static void debug(final String format, final Object... args) {
+		//noinspection StringConcatenationArgumentToLogCall
+		LOGGER.debug("[" + MOD_ID + "] " + format, args);
 	}
 }

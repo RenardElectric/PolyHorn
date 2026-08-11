@@ -1,6 +1,7 @@
 package polycube.polyhorn;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -36,13 +37,16 @@ public class Config extends SavedData {
     }
 
     /// Sets the horn cooldown, returning true if the value was valid and set, or false if it was out of range.
-    public boolean setHornCooldown(int cooldown) {
-        if (cooldown < HRN_COOLDOWN_MIN || cooldown > HRN_COOLDOWN_MAX) {
-            return false;
+    public DataResult<Config> setHornCooldown(int cooldown) {
+        if (cooldown < HRN_COOLDOWN_MIN) {
+            return DataResult.error(() -> "Horn cooldown cannot be negative");
+        }
+        if (cooldown > HRN_COOLDOWN_MAX) {
+            return DataResult.error(() -> "Horn cooldown cannot exceed " + HRN_COOLDOWN_MAX);
         }
         this.hornCooldown = cooldown;
         setDirty();
-        return true;
+        return DataResult.success(this);
     }
 
     /// Loads or creates the world-level PolyHorn config.

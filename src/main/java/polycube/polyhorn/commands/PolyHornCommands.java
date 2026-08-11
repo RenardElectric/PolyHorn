@@ -9,7 +9,6 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 import polycube.polyhorn.PolyHorn;
-import polycube.polyhorn.utils.Helpers;
 
 import java.util.Objects;
 
@@ -28,7 +27,7 @@ public final class PolyHornCommands {
                 baseCommand.then(command.getCommand());
             }
             dispatcher.register(baseCommand);
-            Helpers.debug("Registered {} PolyHorn subcommand(s)", commands.length);
+            PolyHorn.debug("Registered {} PolyHorn subcommand(s)", commands.length);
         });
     }
 
