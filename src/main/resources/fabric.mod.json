@@ -1,32 +1,32 @@
 {
-	"schemaVersion": 1,
-	"id": "polyhorn",
-	"version": "${version}",
-	"name": "PolyHorn",
-	"description": "",
-	"authors": [
-		"RenardElectric",
-		"Timeo"
-	],
-	"license": "MIT",
-	"icon": "assets/polyhorn/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-          "polycube.polyhorn.PolyHorn"
-		],
-		"client": [
-			"polycube.polyhorn.client.PolyHornClient"
-		],
-		"fabric-datagen": [
-			"polycube.polyhorn.client.DataGenerator"
-		]
-	},
-	"depends": {
-		"java": ">=${java_version}",
-		"minecraft": "${minecraft_version}",
-		"fabricloader": ">=${loader_version}",
-		"fabric-api": ">=${fabric_api_version}"
-	},
-	"accessWidener": "polyhorn.classtweaker"
+  "schemaVersion": 1,
+  "id": "polyhorn",
+  "version": "${version}",
+  "name": "PolyHorn",
+  "description": "",
+  "authors": [
+    "RenardElectric",
+    "Timeo"
+  ],
+  "license": "MIT",
+  "icon": "assets/polyhorn/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "polycube.polyhorn.PolyHorn"
+    ],
+    "client": [
+      "polycube.polyhorn.client.PolyHornClient"
+    ],
+    "fabric-datagen": [
+      "polycube.polyhorn.client.DataGenerator"
+    ]
+  },
+  "depends": {
+    "java": ">=${java_version}",
+    "minecraft": "${minecraft_version}",
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": ">=${fabric_api_version}"
+  },
+  "accessWidener": "polyhorn.classtweaker"
 }

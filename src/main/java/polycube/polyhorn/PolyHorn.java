@@ -15,36 +15,36 @@ import polycube.polyhorn.commands.PolyHornCommands;
 import java.util.Objects;
 
 public class PolyHorn implements ModInitializer {
-	public static final String MOD_ID = "polyhorn";
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	private static @Nullable Config config;
+    public static final String MOD_ID = "polyhorn";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    private static @Nullable Config config;
 
-	public static Config config() {
-		return Objects.requireNonNull(config, "PolyHorn config is unavailable before the server has started");
-	}
+    public static Config config() {
+        return Objects.requireNonNull(config, "PolyHorn config is unavailable before the server has started");
+    }
 
-	@Override
-	public void onInitialize() {
-		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-			config = Config.load(server);
-			debug("Initialized PolyHorn state for server {}", server.getServerModName());
-		});
-		ServerLifecycleEvents.SERVER_STOPPED.register(_ -> {
-			config = null;
-			debug("Cleared PolyHorn server state");
-		});
+    @Override
+    public void onInitialize() {
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            config = Config.load(server);
+            debug("Initialized PolyHorn state for server {}", server.getServerModName());
+        });
+        ServerLifecycleEvents.SERVER_STOPPED.register(_ -> {
+            config = null;
+            debug("Cleared PolyHorn server state");
+        });
 
-		PolyHornCommands.registerCommands(
-				new HelpCommand(),
-				new GiveCommand(),
-				new ConfigCommand()
-		);
+        PolyHornCommands.registerCommands(
+                new HelpCommand(),
+                new GiveCommand(),
+                new ConfigCommand()
+        );
 
-		HornEvents.register();
-	}
+        HornEvents.register();
+    }
 
-	public static void debug(final String format, final Object... args) {
-		//noinspection StringConcatenationArgumentToLogCall
-		LOGGER.debug("[" + MOD_ID + "] " + format, args);
-	}
+    public static void debug(final String format, final Object... args) {
+        //noinspection StringConcatenationArgumentToLogCall
+        LOGGER.debug("[" + MOD_ID + "] " + format, args);
+    }
 }

@@ -26,10 +26,10 @@ public class ConfigCommand extends PolyHornCommand {
     public ArgumentBuilder<CommandSourceStack, ?> getCommand() {
         return super.getCommand()
                 .then(Commands.literal("horn_cooldown")
-                            .executes(ConfigCommand::getHornCooldown)
-                            .then(Commands.argument("value", IntegerArgumentType.integer(Config.HRN_COOLDOWN_MIN, Config.HRN_COOLDOWN_MAX))
-                                    .executes(ConfigCommand::setHornCooldown)
-                            )
+                        .executes(ConfigCommand::getHornCooldown)
+                        .then(Commands.argument("value", IntegerArgumentType.integer(Config.HRN_COOLDOWN_MIN, Config.HRN_COOLDOWN_MAX))
+                                .executes(ConfigCommand::setHornCooldown)
+                        )
                 );
     }
 
@@ -42,9 +42,9 @@ public class ConfigCommand extends PolyHornCommand {
     private static int setHornCooldown(CommandContext<CommandSourceStack> ctx) {
         int value = getInteger(ctx, "value");
         return PolyHorn.config().setHornCooldown(value).ifError(err ->
-            ctx.getSource().sendFailure(Component.literal("Failed to set horn cooldown: " + err.message()))
+                ctx.getSource().sendFailure(Component.literal("Failed to set horn cooldown: " + err.message()))
         ).ifSuccess(
-            _ -> ctx.getSource().sendSuccess(() -> Component.literal("Set horn cooldown to " + value + " ticks"), false)
+                _ -> ctx.getSource().sendSuccess(() -> Component.literal("Set horn cooldown to " + value + " ticks"), false)
         ).mapOrElse(_ -> 1, _ -> 0);
     }
 }

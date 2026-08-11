@@ -31,9 +31,9 @@ public final class HornEvents {
         });
 
         UseItemCallback.EVENT.register((player, _, hand) -> {
-                if (player.isSpectator()) return InteractionResult.PASS;
-                return useHorn(player, player.getItemInHand(hand));
-            }
+                    if (player.isSpectator()) return InteractionResult.PASS;
+                    return useHorn(player, player.getItemInHand(hand));
+                }
         );
     }
 
