@@ -17,6 +17,12 @@
       "!minecraft:food": {},
       "minecraft:item_model": "polyhorn:horn_of_origin",
       "minecraft:item_name": "Horn of Origin",
+      "minecraft:lore": [
+        {
+          "italic": false,
+          "text": "A magical horn that teleports you back to your respawn point."
+        }
+      ],
       "minecraft:max_stack_size": 1,
       "minecraft:rarity": "epic",
       "minecraft:use_cooldown": {
