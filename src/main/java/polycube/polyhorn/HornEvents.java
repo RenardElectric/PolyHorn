@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.level.portal.TeleportTransition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class HornEvents {
@@ -98,14 +99,21 @@ public final class HornEvents {
         BlockPos position = BlockPos.containing(location.position());
         var coordinates = position.getX() + ", " + position.getY() + ", " + position.getZ();
         var dimension = location.dimension().identifier().toString();
-        stack.set(DataComponents.LORE, new ItemLore(List.of(
-                loreLine(coordinates),
-                loreLine(dimension)
-        )));
-    }
-
-    private static Component loreLine(String text) {
-        return Component.literal(text).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
+        var lore = stack.get(DataComponents.LORE);
+        if (lore == null) lore = new ItemLore(List.of());
+        List<Component> lines = new ArrayList<>(lore.lines());
+        var newLine = Component.literal("Return point set to: ")
+                .append(Component.literal(coordinates)
+                        .append(", ")
+                        .append(dimension)
+                        .withStyle(ChatFormatting.ITALIC))
+                .withStyle(s -> s.withItalic(false))
+                .withStyle(ChatFormatting.GRAY);
+        if (lines.size() > 3)
+            lines.set(1, newLine);
+        else
+            lines.add(1, newLine);
+        stack.set(DataComponents.LORE, new ItemLore(lines));
     }
 
     private static void teleport(
