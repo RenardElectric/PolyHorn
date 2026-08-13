@@ -2,7 +2,6 @@
 name: release-notes
 description: Generates concise, evidence-based release notes for Minecraft mods.
 infer: false
-model: auto
 tools:
   - view
   - create
