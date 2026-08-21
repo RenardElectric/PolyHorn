@@ -68,6 +68,7 @@ public final class HornEvents {
                 TeleportTransition.DO_NOTHING
         );
         teleport(player, transition);
+        PolyHorn.LOGGER.debug("Player {} used Horn of Origin to teleport to their spawn point at {} in dimension {}", player.getName().getString(), transition.position(), transition.newLevel().dimension().identifier());
     }
 
     private static void useReturnHorn(ServerPlayer player, ItemStack stack) {
@@ -76,6 +77,7 @@ public final class HornEvents {
             location.save(stack);
             updateLore(stack, location);
             notify(player, "Location set for Horn of Return");
+            PolyHorn.LOGGER.debug("Player {} set Horn of Return location to {} in dimension {}", player.getName().getString(), location.position(), location.dimension().identifier());
             return;
         }
 
@@ -92,6 +94,7 @@ public final class HornEvents {
 
         notify(player, "Teleporting...");
         teleport(player, transition.get());
+        PolyHorn.LOGGER.debug("Player {} used Horn of Return to teleport to {} in dimension {}", player.getName().getString(), transition.get().position(), transition.get().newLevel().dimension().identifier());
     }
 
     private static void updateLore(ItemStack stack, HornReturnLocation location) {
