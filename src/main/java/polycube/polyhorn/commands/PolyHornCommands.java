@@ -27,7 +27,7 @@ public final class PolyHornCommands {
                 baseCommand.then(command.getCommand());
             }
             dispatcher.register(baseCommand);
-            PolyHorn.debug("Registered {} PolyHorn subcommand(s)", commands.length);
+            PolyHorn.LOGGER.info("Registered {} PolyHorn subcommand(s)", commands.length);
         });
     }
 

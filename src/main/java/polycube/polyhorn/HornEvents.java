@@ -22,7 +22,7 @@ public final class HornEvents {
     private HornEvents() {}
 
     public static void register() {
-        PolyHorn.debug("Registering horn events for {}", PolyHorn.MOD_ID);
+        PolyHorn.LOGGER.info("Registering horn events for {}", PolyHorn.MOD_ID);
 
         UseEntityCallback.EVENT.register((player, _, _, entity, _) -> {
             if ((player.isShiftKeyDown() && !player.isSpectator()) || !(entity instanceof ItemFrame frame)) {
@@ -84,8 +84,7 @@ public final class HornEvents {
             return;
         }
 
-        var transition = HornReturnLocation.load(stack)
-                .flatMap(location -> location.createTransition(player.level().getServer()));
+        var transition = HornReturnLocation.load(stack).flatMap(location -> location.createTransition(player.level().getServer()));
         if (transition.isEmpty()) {
             notify(player, "Unable to teleport, Horn of Return has no saved location!");
             return;
