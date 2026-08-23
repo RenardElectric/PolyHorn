@@ -3,7 +3,7 @@
   "id": "${mod_id}",
   "version": "${mod_version}",
   "name": "${mod_name}",
-  "description": "Teleportation horns - use them to teleport to your spawn point or to a saved location!",
+  "description": "Teleportation horns - use them to teleport to your spawn point or to a saved location.",
   "authors": [
     "RenardElectric",
     "Timeo"
