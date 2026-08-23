@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/main/resources/assets/polyhorn/logo.png" alt="PolyHorn logo">
+  <img src=".github/images/logo.png" alt="PolyHorn logo">
 </p>
 
 <h1 align="center">PolyHorn</h1>
@@ -33,10 +33,10 @@ destinations: your respawn point and a return point stored directly inside a Hor
 
 ## What you can do
 
-|                                                                                                                 | Horn               | Functionality                                                                                      | Controls                                                       |
-|-----------------------------------------------------------------------------------------------------------------|--------------------|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| <img src="src/main/resources/assets/polyhorn/textures/item/horn_of_origin.png" alt="Horn of Origin" width="48"> | **Horn of Origin** | Teleport to your current respawn point.                                                            | Right-click while holding it.                                  |
-| <img src="src/main/resources/assets/polyhorn/textures/item/horn_of_return.png" alt="Horn of Return" width="48"> | **Horn of Return** | Save a personal destination inside that horn, then return to it later—even from another dimension. | Sneak and right-click to save; right-click normally to return. |
+|                                                                               | Horn               | Functionality                                                                                      | Controls                                                       |
+|-------------------------------------------------------------------------------|--------------------|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| <img src=".github/images/horn_of_origin.png" alt="Horn of Origin" width="48"> | **Horn of Origin** | Teleport to your current respawn point.                                                            | Right-click while holding it.                                  |
+| <img src=".github/images/horn_of_return.png" alt="Horn of Return" width="48"> | **Horn of Return** | Save a personal destination inside that horn, then return to it later—even from another dimension. | Sneak and right-click to save; right-click normally to return. |
 
 - A Horn of Return remembers its dimension, coordinates and viewing direction in the item itself.
 - Its lore shows the saved coordinates and dimension after a return point is set.
@@ -78,6 +78,7 @@ Follow [Installing PolyHorn](#installing-polyhorn).
 
 <details open>
 <summary><strong>Horn of Origin</strong></summary>
+<img src=".github/images/horn_of_origin_recipe_big.png" alt="Horn of Origin recipe">
 
 ```text
 · E ·
@@ -93,6 +94,7 @@ I H I
 
 <details open>
 <summary><strong>Horn of Return</strong></summary>
+<img src=".github/images/horn_of_return_recipe_big.png" alt="Horn of Return recipe">
 
 ```text
 C E C

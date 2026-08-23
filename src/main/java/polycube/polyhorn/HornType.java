@@ -23,6 +23,7 @@ public enum HornType implements StringRepresentable {
     }},
     ORIGIN("horn_of_origin", "Horn of Origin") {{
         addLoreLine(Component.literal("A magical horn that teleports you back to your respawn point.").withStyle(s -> s.withItalic(false)));
+        addLoreLine(Component.literal("Right-click to return to your respawn point.").withStyle(s -> s.withItalic(false)).withStyle(ChatFormatting.DARK_GRAY));
     }};
 
     public static final Item HORN_ITEM = Items.POISONOUS_POTATO;
