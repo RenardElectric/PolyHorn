@@ -1,6 +1,6 @@
 package polycube.polyhorn.commands;
 
-import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
@@ -23,7 +23,7 @@ public class GiveCommand extends PolyHornCommand {
     }
 
     @Override
-    public ArgumentBuilder<CommandSourceStack, ?> getCommand() {
+    public LiteralArgumentBuilder<CommandSourceStack> getCommand(String name) {
         var playerArgument = Commands.argument("player", EntityArgument.players());
         for (HornType hornType : HornType.values()) {
             playerArgument.then(
@@ -31,7 +31,7 @@ public class GiveCommand extends PolyHornCommand {
                             .executes(ctx -> giveHorn(ctx, hornType))
             );
         }
-        return super.getCommand().then(playerArgument);
+        return super.getCommand(name).then(playerArgument);
     }
 
     private static int giveHorn(CommandContext<CommandSourceStack> ctx, HornType hornType) throws CommandSyntaxException {

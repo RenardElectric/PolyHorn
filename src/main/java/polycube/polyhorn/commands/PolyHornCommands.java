@@ -6,7 +6,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.Person;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 import polycube.polyhorn.PolyHorn;
 
@@ -15,8 +14,7 @@ import java.util.Objects;
 public final class PolyHornCommands {
     private static PolyHornCommand @Nullable [] commands;
 
-    private PolyHornCommands() {
-    }
+    private PolyHornCommands() {}
 
     public static void registerCommands(PolyHornCommand... commands) {
         PolyHornCommands.commands = commands;
@@ -24,10 +22,13 @@ public final class PolyHornCommands {
             var baseCommand = Commands.literal(PolyHorn.MOD_ID);
             baseCommand.executes(context -> printModInfo(context.getSource()));
             for (PolyHornCommand command : commands) {
-                baseCommand.then(command.getCommand());
+                for (var commandAlias : command.getCommands()) {
+                    baseCommand.then(commandAlias);
+                    if (command.hasQuickAlias()) dispatcher.register(commandAlias);
+                }
             }
             dispatcher.register(baseCommand);
-            PolyHorn.LOGGER.info("Registered {} PolyHorn subcommand(s)", commands.length);
+            PolyHorn.LOGGER.debug("Registered {} PolyHorn subcommand(s)", commands.length);
         });
     }
 
@@ -37,7 +38,8 @@ public final class PolyHornCommands {
                 .map(ModContainer::getMetadata);
 
         if (optionalModData.isEmpty()) {
-            cst.sendFailure(Component.literal("Could not fetch mod information."));
+            PolyHorn.LOGGER.warn("Could not find PolyHorn metadata while handling the base command");
+            cst.sendFailure(CommandText.error("Could not fetch mod information."));
             return 0;
         }
         var modData = optionalModData.get();
@@ -45,9 +47,11 @@ public final class PolyHornCommands {
                 .map(Person::getName)
                 .reduce((a, b) -> a + " and " + b)
                 .orElse("Unknown authors");
-        var modInfo = Component.literal("\n" + modData.getName() + " v" + modData.getVersion().getFriendlyString())
-                .append("\nMade by " + authors)
-                .append("\n" + modData.getDescription());
+        var modInfo = CommandText.header(modData.getName())
+                .append(CommandText.muted(" v" + modData.getVersion().getFriendlyString()))
+                .append(CommandText.field("Made by", CommandText.value(authors)))
+                .append("\n" + modData.getDescription())
+                .append("\n").append(CommandText.action("[View commands]", "/" + PolyHorn.MOD_ID + " help"));
         cst.sendSuccess(() -> modInfo, false);
         return 1;
     }
