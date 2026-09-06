@@ -128,7 +128,6 @@ joining an existing server can return to [Start playing](#start-playing).
 
 | Component     | Current requirement                      |
 |---------------|------------------------------------------|
-| PolyHorn      | `1.0.3`                                  |
 | Minecraft     | `26.2`                                   |
 | Java          | `25` or newer                            |
 | Fabric Loader | `0.19.3` or newer                        |
