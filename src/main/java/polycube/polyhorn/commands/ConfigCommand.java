@@ -46,12 +46,12 @@ public class ConfigCommand extends PolyHornCommand {
         int value = getInteger(ctx, "value");
         int oldValue = PolyHorn.config().getHornCooldown();
         return PolyHorn.config().setHornCooldown(value).ifError(err ->
-                ctx.getSource().sendFailure(Component.literal("Failed to set horn cooldown: " + err.message()))
+                ctx.getSource().sendFailure(CommandText.error("Failed to set horn cooldown: " + err.message()))
         ).ifSuccess(
                 _ -> {
-                    var message = CommandText.header("Horn Cooldown")
-                            .append(CommandText.field("Old value", CommandText.value(oldValue + " ticks")))
-                            .append(CommandText.field("New value", CommandText.value(value + " ticks")));
+                    var message = CommandText.success("Horn cooldown updated")
+                            .append(CommandText.field("Before", CommandText.value(oldValue + " ticks")))
+                            .append(CommandText.field("Now", CommandText.value(value + " ticks")));
                     ctx.getSource().sendSuccess(() -> message, false);
                 }
         ).mapOrElse(_ -> 1, _ -> 0);
