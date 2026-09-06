@@ -6,29 +6,25 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.Person;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import org.jspecify.annotations.Nullable;
 import polycube.polyhorn.PolyHorn;
 
-import java.util.Objects;
+import java.util.List;
 
 public final class PolyHornCommands {
-    private static PolyHornCommand @Nullable [] commands;
+    private static List<PolyHornCommand> commands = List.of();
 
     private PolyHornCommands() {}
 
-    public static void registerCommands(PolyHornCommand... commands) {
-        PolyHornCommands.commands = commands;
+    public static void registerCommands(PolyHornCommand... commandsToRegister) {
+        commands = List.of(commandsToRegister);
         CommandRegistrationCallback.EVENT.register((dispatcher, _, _) -> {
             var baseCommand = Commands.literal(PolyHorn.MOD_ID);
             baseCommand.executes(context -> printModInfo(context.getSource()));
             for (PolyHornCommand command : commands) {
-                for (var commandAlias : command.getCommands()) {
-                    baseCommand.then(commandAlias);
-                    if (command.hasQuickAlias()) dispatcher.register(commandAlias);
-                }
+                baseCommand.then(command.getCommand(command.getName()));
             }
             dispatcher.register(baseCommand);
-            PolyHorn.LOGGER.debug("Registered {} PolyHorn subcommand(s)", commands.length);
+            PolyHorn.LOGGER.debug("Registered {} PolyHorn subcommand(s)", commands.size());
         });
     }
 
@@ -56,7 +52,7 @@ public final class PolyHornCommands {
         return 1;
     }
 
-    public static PolyHornCommand[] getCommands() {
-        return Objects.requireNonNull(commands, "PolyHorn commands are unavailable before registration");
+    public static List<PolyHornCommand> getCommands() {
+        return commands;
     }
 }

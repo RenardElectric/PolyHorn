@@ -3,8 +3,10 @@ package polycube.polyhorn;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -55,7 +57,13 @@ public record HornReturnLocation(ResourceKey<Level> dimension, Vec3 position, fl
         if (customData == null) {
             return Optional.empty();
         }
-        return customData.copyTag().read(DATA_KEY, CODEC);
+
+        var encodedLocation = customData.copyTag().get(DATA_KEY);
+        if (encodedLocation == null) {
+            return Optional.empty();
+        }
+
+        return CODEC.parse(NbtOps.INSTANCE, encodedLocation).result();
     }
 
     public void save(ItemStack stack) {
@@ -67,15 +75,21 @@ public record HornReturnLocation(ResourceKey<Level> dimension, Vec3 position, fl
     }
 
     public Optional<TeleportTransition> createTransition(MinecraftServer server) {
-        return Optional.ofNullable(server.getLevel(dimension))
-                .map(targetLevel -> new TeleportTransition(
-                        targetLevel,
-                        position,
-                        Vec3.ZERO,
-                        yaw,
-                        pitch,
-                        TeleportTransition.DO_NOTHING
-                ));
+        var targetLevel = server.getLevel(dimension);
+        if (targetLevel == null
+                || !Level.isInSpawnableBounds(BlockPos.containing(position))
+                || !targetLevel.getWorldBorder().isWithinBounds(position)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new TeleportTransition(
+                targetLevel,
+                position,
+                Vec3.ZERO,
+                yaw,
+                pitch,
+                TeleportTransition.DO_NOTHING
+        ));
     }
 
     private static DataResult<HornReturnLocation> validate(HornReturnLocation location) {

@@ -1,8 +1,6 @@
 package polycube.polyhorn.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -10,32 +8,17 @@ import net.minecraft.server.permissions.Permission;
 import net.minecraft.server.permissions.PermissionLevel;
 import polycube.polyhorn.PolyHorn;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class PolyHornCommand {
     private final String name;
     private final String description;
     private final String usage;
     private final PermissionLevel permissionLevel;
-    private final boolean hasQuickAlias;
-    private final List<String> aliases;
 
     public PolyHornCommand(String name, String description, String usage, PermissionLevel permissionLevel) {
-        this(name, description, usage, permissionLevel, false);
-    }
-
-    public PolyHornCommand(String name, String description, String usage, PermissionLevel permissionLevel, boolean hasQuickAlias) {
-        this(name, description, usage, permissionLevel, hasQuickAlias, List.of());
-    }
-
-    public PolyHornCommand(String name, String description, String usage, PermissionLevel permissionLevel, boolean hasQuickAlias, List<String> aliases) {
         this.name = name;
         this.description = description;
         this.usage = usage;
         this.permissionLevel = permissionLevel;
-        this.hasQuickAlias = hasQuickAlias;
-        this.aliases = aliases;
     }
 
     protected String getName() {
@@ -54,25 +37,11 @@ public abstract class PolyHornCommand {
             message.append("\n  ").append(CommandText.value("/" + PolyHorn.MOD_ID + " " + name
                     + (variant.isBlank() ? "" : " " + variant)));
         }
-        if (hasQuickAlias) {
-            var shortcuts = new ArrayList<String>();
-            shortcuts.add("/" + name);
-            for (String alias : aliases) shortcuts.add("/" + alias);
-            message.append(CommandText.field("Shortcuts", CommandText.value(String.join(", ", shortcuts))));
-        }
         return message.append("\n<...> required • [...] optional.");
     }
 
     protected PermissionLevel getPermissionLevel() {
         return this.permissionLevel;
-    }
-
-    protected boolean hasQuickAlias() {
-        return this.hasQuickAlias;
-    }
-
-    protected List<String> getAliases() {
-        return this.aliases;
     }
 
     public LiteralArgumentBuilder<CommandSourceStack> getCommand(String name) {
@@ -85,17 +54,6 @@ public abstract class PolyHornCommand {
                 }));
 
     }
-
-    public List<LiteralArgumentBuilder<CommandSourceStack>> getCommands() {
-        var commands = new ArrayList<LiteralArgumentBuilder<CommandSourceStack>>();
-        var aliases = new ArrayList<>(getAliases());
-        aliases.add(name);
-        for (String alias : aliases) {
-            commands.add(getCommand(alias));
-        }
-        return commands;
-    }
-
     protected boolean hasPermission(CommandSourceStack source, PermissionLevel permissionLevel) {
         return source.permissions().hasPermission(new Permission.HasCommandLevel(permissionLevel));
     }

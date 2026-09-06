@@ -8,6 +8,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
@@ -19,23 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class HornEvents {
+    private static final String RETURN_POINT_PREFIX = "Return point set to: ";
+
     private HornEvents() {}
 
     public static void register() {
         PolyHorn.LOGGER.info("Registering horn events for {}", PolyHorn.MOD_ID);
 
-        UseEntityCallback.EVENT.register((player, _, _, entity, _) -> {
-            if ((player.isShiftKeyDown() && !player.isSpectator()) || !(entity instanceof ItemFrame frame)) {
+        UseEntityCallback.EVENT.register((player, _, hand, entity, _) -> {
+            if (hand != InteractionHand.MAIN_HAND
+                    || player.isShiftKeyDown()
+                    || !(entity instanceof ItemFrame frame)) {
                 return InteractionResult.PASS;
             }
             return useHorn(player, frame.getItem());
         });
 
         UseItemCallback.EVENT.register((player, _, hand) -> {
-                    if (player.isSpectator()) return InteractionResult.PASS;
-                    return useHorn(player, player.getItemInHand(hand));
-                }
-        );
+            if (player.isSpectator()) return InteractionResult.PASS;
+            return useHorn(player, player.getItemInHand(hand));
+        });
     }
 
     private static InteractionResult useHorn(Player player, ItemStack stack) {
@@ -67,8 +71,13 @@ public final class HornEvents {
                 false,
                 TeleportTransition.DO_NOTHING
         );
-        teleport(player, transition);
-        PolyHorn.LOGGER.debug("Player {} used Horn of Origin to teleport to their spawn point at {} in dimension {}", player.getName().getString(), transition.position(), transition.newLevel().dimension().identifier());
+        teleport(player, stack, transition);
+        PolyHorn.LOGGER.debug(
+                "Player {} used Horn of Origin to teleport to their spawn point at {} in dimension {}",
+                player.getName().getString(),
+                transition.position(),
+                transition.newLevel().dimension().identifier()
+        );
     }
 
     private static void useReturnHorn(ServerPlayer player, ItemStack stack) {
@@ -86,15 +95,26 @@ public final class HornEvents {
             return;
         }
 
-        var transition = HornReturnLocation.load(stack).flatMap(location -> location.createTransition(player.level().getServer()));
-        if (transition.isEmpty()) {
+        var location = HornReturnLocation.load(stack);
+        if (location.isEmpty()) {
             notify(player, "Unable to teleport, Horn of Return has no saved location!");
             return;
         }
 
+        var transition = location.get().createTransition(player.level().getServer());
+        if (transition.isEmpty()) {
+            notify(player, "Unable to teleport, the saved location is unavailable!");
+            return;
+        }
+
         notify(player, "Teleporting...");
-        teleport(player, transition.get());
-        PolyHorn.LOGGER.debug("Player {} used Horn of Return to teleport to {} in dimension {}", player.getName().getString(), transition.get().position(), transition.get().newLevel().dimension().identifier());
+        teleport(player, stack, transition.get());
+        PolyHorn.LOGGER.debug(
+                "Player {} used Horn of Return to teleport to {} in dimension {}",
+                player.getName().getString(),
+                transition.get().position(),
+                transition.get().newLevel().dimension().identifier()
+        );
     }
 
     private static void updateLore(ItemStack stack, HornReturnLocation location) {
@@ -104,27 +124,36 @@ public final class HornEvents {
         var lore = stack.get(DataComponents.LORE);
         if (lore == null) lore = new ItemLore(List.of());
         List<Component> lines = new ArrayList<>(lore.lines());
-        var newLine = Component.literal("Return point set to: ")
-                .append(Component.literal(coordinates)
-                        .append(", ")
-                        .append(dimension)
+        var newLine = Component.literal(RETURN_POINT_PREFIX)
+                .append(Component.literal(coordinates + ", " + dimension)
                         .withStyle(ChatFormatting.ITALIC))
                 .withStyle(s -> s.withItalic(false))
                 .withStyle(ChatFormatting.GRAY);
-        if (lines.size() > 3)
-            lines.set(1, newLine);
-        else
-            lines.add(1, newLine);
+
+        int existingLine = -1;
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).getString().startsWith(RETURN_POINT_PREFIX)) {
+                existingLine = i;
+                break;
+            }
+        }
+
+        if (existingLine >= 0) {
+            lines.set(existingLine, newLine);
+        } else {
+            lines.add(Math.min(1, lines.size()), newLine);
+        }
         stack.set(DataComponents.LORE, new ItemLore(lines));
     }
 
     private static void teleport(
             ServerPlayer player,
+            ItemStack stack,
             TeleportTransition transition
     ) {
         player.teleport(transition);
         player.resetFallDistance();
-        player.getCooldowns().addCooldown(HornType.HORN_COOLDOWN_GROUP, PolyHorn.config().getHornCooldown());
+        player.getCooldowns().addCooldown(stack, PolyHorn.config().getHornCooldown());
         transition.newLevel().playSound(
                 null,
                 transition.position().x,

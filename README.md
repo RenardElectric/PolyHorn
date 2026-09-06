@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://github.com/RenardElectric/polyhorn/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/RenardElectric/polyhorn"></a>
   <img alt="Minecraft 26.2" src="https://img.shields.io/badge/Minecraft-26.2-3C8527">
-  <img alt="Fabric Loader 0.19.3 or newer" src="https://img.shields.io/badge/Fabric%20Loader-0.19.3%2B-DBD0B4">
+  <img alt="Fabric Loader 0.19.5 or newer" src="https://img.shields.io/badge/Fabric%20Loader-0.19.5%2B-DBD0B4">
   <img alt="Java 25" src="https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&amp;logoColor=white">
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/RenardElectric/polyhorn"></a>
 </p>
@@ -28,7 +28,7 @@ PolyHorn is a server-side Fabric mod that adds two unstackable teleportation hor
 destinations: your respawn point and a return point stored directly inside a Horn of Return.
 
 > [!NOTE]
-> **Just joining an existing PolyCard server?** You can ignore the
+> **Just joining an existing PolyHorn server?** You can ignore the
 > [server administrator](#server-administrators) and [developer](#developers) sections.
 
 ## What you can do
@@ -43,7 +43,7 @@ destinations: your respawn point and a return point stored directly inside a Hor
 - Right-clicking a horn displayed in an item frame activates it without removing it.
 - Successful teleports reset fall distance, play a teleport sound and start a shared horn cooldown.
 - Both horns have survival crafting recipes and can also be issued through an administrative command.
-- Spectators cannot activate horns.
+- Spectators cannot activate held horns, but can activate framed horns to inspect their destinations.
 
 ## Start playing
 
@@ -54,7 +54,7 @@ destinations: your respawn point and a return point stored directly inside a Hor
 3. Craft a horn using one of the recipes below or get one from a server administrator.
 4. Open chat and run `/polyhorn help` whenever you need the available command list.
 
-If cards have missing textures, ask the server administrator whether the PolyCard resource pack is
+If horns have missing textures, ask the server administrator whether the PolyHorn resource pack is
 correctly set up.
 
 ### Playing in singleplayer
@@ -130,8 +130,8 @@ joining an existing server can return to [Start playing](#start-playing).
 |---------------|------------------------------------------|
 | Minecraft     | `26.2`                                   |
 | Java          | `25` or newer                            |
-| Fabric Loader | `0.19.3` or newer                        |
-| Fabric API    | `0.158.0+26.2` or newer compatible build |
+| Fabric Loader | `0.19.5` or newer                        |
+| Fabric API    | `0.159.0+26.2` or newer compatible build |
 
 ### Installing PolyHorn
 
@@ -197,7 +197,7 @@ These commands use Minecraft's **Gamemasters** permission level. All arguments p
 
 - Git
 - JDK 25
-- No system Gradle installation is required; the repository includes the Gradle 9.7 wrapper.
+- No system Gradle installation is required; the repository includes the Gradle 9.7.1 wrapper.
 
 Clone the repository:
 

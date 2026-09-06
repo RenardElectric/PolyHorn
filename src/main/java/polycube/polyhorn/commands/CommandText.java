@@ -36,10 +36,6 @@ public final class CommandText {
                 .append(text.copy().withStyle(ChatFormatting.RED));
     }
 
-    public static MutableComponent warning(String text) {
-        return message().append(colored("Warning: " + text, ChatFormatting.YELLOW));
-    }
-
     public static MutableComponent value(Object value) {
         return colored(String.valueOf(value), ChatFormatting.AQUA);
     }
@@ -54,22 +50,6 @@ public final class CommandText {
 
     public static MutableComponent field(String label, Component value) {
         return colored("\n  " + label + ": ", ChatFormatting.GRAY).append(value);
-    }
-
-    public static MutableComponent badge() {
-        return colored(" [default]", ChatFormatting.YELLOW);
-    }
-
-    public static MutableComponent yesNo(boolean value) {
-        return colored(value ? "Yes" : "No", value ? ChatFormatting.GREEN : ChatFormatting.GRAY);
-    }
-
-    public static MutableComponent property(Component subject, String label, Component value) {
-        return message().append(subject).append(field(label, value));
-    }
-
-    public static MutableComponent updated(Component subject, String label, Component value) {
-        return success("Updated ").append(subject).append(field(label, value));
     }
 
     public static MutableComponent action(String label, String command) {

@@ -37,12 +37,23 @@ public class GiveCommand extends PolyHornCommand {
     private static int giveHorn(CommandContext<CommandSourceStack> ctx, HornType hornType) throws CommandSyntaxException {
         var players = EntityArgument.getPlayers(ctx, "player");
         giveHorn(players, hornType);
-        return 1;
+        return players.size();
     }
 
     private static void giveHorn(Collection<ServerPlayer> players, HornType hornType) {
         for (ServerPlayer player : players) {
-            player.getInventory().placeItemBackInInventory(hornType.createItem());
+            var horn = hornType.createItem();
+            if (player.getInventory().getFreeSlot() >= 0) {
+                player.getInventory().add(horn);
+                player.containerMenu.broadcastChanges();
+                continue;
+            }
+
+            var droppedHorn = player.drop(horn, false);
+            if (droppedHorn != null) {
+                droppedHorn.setNoPickUpDelay();
+                droppedHorn.setTarget(player.getUUID());
+            }
         }
     }
 }
