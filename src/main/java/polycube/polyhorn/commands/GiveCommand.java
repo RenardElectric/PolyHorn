@@ -8,6 +8,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.PermissionLevel;
+import net.minecraft.util.Prediction;
 import polycube.polyhorn.HornType;
 
 import java.util.Collection;
@@ -49,7 +50,7 @@ public class GiveCommand extends PolyHornCommand {
                 continue;
             }
 
-            var droppedHorn = player.drop(horn, false);
+            var droppedHorn = player.drop(horn, false, Prediction.SERVER_ONLY);
             if (droppedHorn != null) {
                 droppedHorn.setNoPickUpDelay();
                 droppedHorn.setTarget(player.getUUID());
