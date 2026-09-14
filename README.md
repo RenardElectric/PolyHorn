@@ -246,6 +246,6 @@ Before submitting a change, run both build commands above and confirm there are 
 
 ## Authors and license
 
-PolyHorn is made by **RenardElectric** and **Timeo** for the PolyCube Team.
+PolyHorn is made by **RenardElectric** and **Timeo**.
 
 This project is available under the [MIT License](LICENSE.txt).
