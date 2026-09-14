@@ -14,8 +14,11 @@ loom {
 		}
 	}
 
-	runs {
-		configureEach { preferGradleTask.set(true) }
+	if (System.getProperty("idea.active") == "true") {
+		runs.configureEach {
+			jvmArguments.add("-XX:+AllowEnhancedClassRedefinition")
+			preferGradleTask.set(true)
+		}
 	}
 
 	accessWidenerPath = file("src/main/resources/polyhorn.classtweaker")
