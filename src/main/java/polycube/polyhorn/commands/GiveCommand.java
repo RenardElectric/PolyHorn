@@ -9,13 +9,16 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.util.Prediction;
+import polycube.polycore.commands.PolyCommand;
 import polycube.polyhorn.HornType;
+import polycube.polyhorn.PolyHorn;
 
 import java.util.Collection;
 
-public class GiveCommand extends PolyHornCommand {
+public class GiveCommand extends PolyCommand {
     public GiveCommand() {
         super(
+                PolyHorn.MOD_ID,
                 "give",
                 "Give a horn of a specific type to one or more players.",
                 "<players> <hornType>",
