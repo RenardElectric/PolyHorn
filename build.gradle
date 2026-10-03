@@ -5,6 +5,7 @@ plugins {
 version = mod_version
 
 repositories {
+	mavenLocal()
 	maven {
 		url = "https://jitpack.io"
 		content {includeGroup "com.github.renardelectric"}
@@ -24,7 +25,6 @@ loom {
 	if (System.getProperty("idea.active") == "true") {
 		runs.configureEach {
 			jvmArguments.add("-XX:+AllowEnhancedClassRedefinition")
-			preferGradleTask.set(true)
 		}
 	}
 

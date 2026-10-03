@@ -16,10 +16,8 @@ import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 public class ConfigCommand extends PolyCommand {
     public ConfigCommand() {
         super(
-                PolyHorn.MOD_ID,
                 "config",
                 "Manage the PolyHorn mod configuration.",
-                "<subcommand> [args]",
                 PermissionLevel.GAMEMASTERS
         );
     }
@@ -28,30 +26,30 @@ public class ConfigCommand extends PolyCommand {
     public LiteralArgumentBuilder<CommandSourceStack> getCommand(String name) {
         return super.getCommand(name)
                 .then(Commands.literal("horn_cooldown")
-                        .executes(ConfigCommand::getHornCooldown)
+                        .executes(this::getHornCooldown)
                         .then(Commands.argument("value", IntegerArgumentType.integer(Config.HRN_COOLDOWN_MIN, Config.HRN_COOLDOWN_MAX))
-                                .executes(ConfigCommand::setHornCooldown)
+                                .executes(this::setHornCooldown)
                         )
                 );
     }
 
-    private static int getHornCooldown(CommandContext<CommandSourceStack> ctx) {
+    private int getHornCooldown(CommandContext<CommandSourceStack> ctx) {
         int value = PolyHorn.config().getHornCooldown();
-        var message = TextComponents.header("Horn Cooldown")
+        var message = textComponents.header("Horn Cooldown")
                         .append(TextComponents.field("Current value", TextComponents.value(value + " ticks")))
                         .append(TextComponents.field("Valid range", TextComponents.value(Config.HRN_COOLDOWN_MIN + " - " + Config.HRN_COOLDOWN_MAX + " ticks")));
         ctx.getSource().sendSuccess(() -> message, false);
         return 1;
     }
 
-    private static int setHornCooldown(CommandContext<CommandSourceStack> ctx) {
+    private int setHornCooldown(CommandContext<CommandSourceStack> ctx) {
         int value = getInteger(ctx, "value");
         int oldValue = PolyHorn.config().getHornCooldown();
         return PolyHorn.config().setHornCooldown(value).ifError(err ->
-                ctx.getSource().sendFailure(TextComponents.error("Failed to set horn cooldown: " + err.message()))
+                ctx.getSource().sendFailure(textComponents.error("Failed to set horn cooldown: " + err.message()))
         ).ifSuccess(
                 _ -> {
-                    var message = TextComponents.success("Horn cooldown updated")
+                    var message = textComponents.success("Horn cooldown updated")
                             .append(TextComponents.field("Before", TextComponents.value(oldValue + " ticks")))
                             .append(TextComponents.field("Now", TextComponents.value(value + " ticks")));
                     ctx.getSource().sendSuccess(() -> message, false);
